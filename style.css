@@ -24,6 +24,7 @@ header h1 {
 
 /* Estilos para el contenido principal */
 main {
+
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
