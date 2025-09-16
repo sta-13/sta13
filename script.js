@@ -1,6 +1,6 @@
 function obtenerDirector() {
     var titulo = document.getElementById("tituloPelicula").value;
-    var peticion = `https://www.omdbapi.com/?apikey=438eb27f=${titulo}`;
+    var peticion = `https://www.omdbapi.com/?apikey=b0560da&s=${titulo}`;
 
     fetch(peticion)
         .then(function (response) {
