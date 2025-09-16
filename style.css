@@ -1,1 +1,76 @@
+/* Estilos generales para el cuerpo de la pÃ¡gina */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Estilos para el encabezado */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilos para el tÃ­tulo en el encabezado */
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Estilos para el contenido principal */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el tÃ­tulo del contenido principal */
+main h2 {
+    font-size: 20px;
+}
+
+/* Estilos para el pÃ¡rrafo del contenido principal */
+main p {
+    font-size: 16px;
+}
+
+/* Estilos para el campo de entrada y el botÃ³n */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Estilos para el pie de pÃ¡gina */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+}
 
