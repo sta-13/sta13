@@ -293,14 +293,8 @@
             const btnBuscar = document.getElementById('btnBuscar');
             const btnLimpiar = document.getElementById('btnLimpiar');
             const inputTitulo = document.getElementById('tituloPelicula');
-            const inputApiKey = document.getElementById('apiKey');
             const resultadosDiv = document.getElementById('resultados');
             
-            // Cargar API key desde localStorage si existe
-            const savedApiKey = localStorage.getItem('omdbApiKey');
-            if (savedApiKey) {
-                inputApiKey.value = savedApiKey;
-            }
             
             btnBuscar.addEventListener('click', buscarPelicula);
             btnLimpiar.addEventListener('click', limpiarBusqueda);
@@ -310,14 +304,9 @@
                 }
             });
             
-            // Guardar API key cuando cambie
-            inputApiKey.addEventListener('change', function() {
-                localStorage.setItem('omdbApiKey', inputApiKey.value);
-            });
-            
-            function buscarPelicula() {
+                function buscarPelicula() {
                 const titulo = inputTitulo.value.trim();
-                const apiKey = inputApiKey.value.trim() || DEFAULT_API_KEY;
+                const apiKey = DEFAULT_API_KEY;
                 
                 if (!titulo) {
                     mostrarError('Por favor, ingresa el título de una película');
@@ -357,14 +346,7 @@
                             <h3>${pelicula.Title} (${pelicula.Year})</h3>
                             <p><strong>Director:</strong> ${pelicula.Director}</p>
                             <p><strong>Año:</strong> ${pelicula.Year}</p>
-                            <p><strong>Actores:</strong> ${pelicula.Actors}</p>
-                            <p><strong>Género:</strong> ${pelicula.Genre}</p>
-                            <p><strong>Duración:</strong> ${pelicula.Runtime}</p>
-                            <p><strong>Calificación:</strong> ${pelicula.imdbRating}/10 (${pelicula.imdbVotes} votos)</p>
-                            <p><strong>Sinopsis:</strong> ${pelicula.Plot}</p>
-                            <p><strong>Idioma:</strong> ${pelicula.Language}</p>
-                            <p><strong>Premios:</strong> ${pelicula.Awards}</p>
-                        </div>
+                            </div>
                     </div>
                 `;
             }
