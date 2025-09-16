@@ -21,7 +21,7 @@ function obtenerDirector() {
                 var mensaje = `</br></h2> Todas las películas de ${titulo} </h2>`;
                 mensaje += "<ul>";
                 resultados.forEach(function (resultado) {
-                    mensaje += `<li>${resultado.Title}</br>Año de la película: ${resultado.Year}</br></br>Director: ${resultado.Director}</br> </li>`;
+                    mensaje += `<li>${resultado.Title}</br>Año de la película: ${resultado.Year}</br>Director: ${resultado.Director} </li>`;
                     mensaje += "<br>";
                 });
                 mensaje += "</ul>";
