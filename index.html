@@ -1,209 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de Películas</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-        
-        .search-container {
-            display: flex;
-            margin-bottom: 25px;
-        }
-        
-        #movieInput {
-            flex: 1;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 4px 0 0 4px;
-            font-size: 16px;
-        }
-        
-        #searchBtn {
-            padding: 12px 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        
-        #searchBtn:hover {
-            background-color: #2980b9;
-        }
-        
-        .result-container {
-            display: none;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-            border-left: 4px solid #3498db;
-        }
-        
-        .movie-title {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .movie-info {
-            margin-bottom: 10px;
-        }
-        
-        .movie-info strong {
-            display: inline-block;
-            width: 80px;
-            color: #7f8c8d;
-        }
-        
-        .error {
-            color: #e74c3c;
-            text-align: center;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .loader {
-            text-align: center;
-            margin: 20px 0;
-            display: none;
-        }
-        
-        .loader::after {
-            content: "";
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Buscador de Películas</h1>
-        
-        <div class="search-container">
-            <input type="text" id="movieInput" placeholder="Escribe el título de una película...">
-            <button id="searchBtn">Buscar</button>
-        </div>
-        
-        <div class="loader" id="loader"></div>
-        
-        <div class="error" id="error">No se encontró la película. Intenta con otro título.</div>
-        
-        <div class="result-container" id="resultContainer">
-            <h2 class="movie-title" id="movieTitle"></h2>
-            <div class="movie-info">
-                <strong>Director:</strong> <span id="movieDirector"></span>
-            </div>
-            <div class="movie-info">
-                <strong>Año:</strong> <span id="movieYear"></span>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        // Elementos del DOM
-        const movieInput = document.getElementById('movieInput');
-        const searchBtn = document.getElementById('searchBtn');
-        const loader = document.getElementById('loader');
-        const error = document.getElementById('error');
-        const resultContainer = document.getElementById('resultContainer');
-        const movieTitle = document.getElementById('movieTitle');
-        const movieDirector = document.getElementById('movieDirector');
-        const movieYear = document.getElementById('movieYear');
-        
-        // Función para buscar la película
-        function searchMovie() {
-            const title = movieInput.value.trim();
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="html.css">
+
+        <title> Página Web apropiada </title>
+
+    </head>
+
+    <body>
+        <header>
+            <h1>Bienvenido a Mi Página Web</h1>
+        </header>
+
+        <main>
+            <h2> Buscador de películas </h2>
+            <p> Escribe el título de la película para saber su director</p>
+            <input type="text" id="tituloPelicula" placeholder="Escribe el titulo de la pelicula..."> 
+            <button onclick="obtenerDirector()"> Enviar </button>
+            <div id="cuadroRespuestas"> </div>
             
-            if (title === '') {
-                alert('Por favor, introduce un título de película');
-                return;
-            }
-            
-            // Mostrar loader y ocultar otros elementos
-            loader.style.display = 'block';
-            error.style.display = 'none';
-            resultContainer.style.display = 'none';
-            
-            // Realizar la petición a la API
-            fetch(`http://www.omdbapi.com/?apikey=438eb27f`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error en la respuesta de la API');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Ocultar loader
-                    loader.style.display = 'none';
-                    
-                    if (data.Response === 'True') {
-                        // Mostrar los datos de la película
-                        movieTitle.textContent = data.Title;
-                        movieDirector.textContent = data.Director;
-                        movieYear.textContent = data.Year;
-                        resultContainer.style.display = 'block';
-                    } else {
-                        // Mostrar error
-                        error.style.display = 'block';
-                    }
-                })
-                .catch(err => {
-                    console.error('Error:', err);
-                    loader.style.display = 'none';
-                    error.style.display = 'block';
-                    error.textContent = 'Error al conectar con el servicio. Intenta más tarde.';
-                });
-        }
-        
-        // Event listeners
-        searchBtn.addEventListener('click', searchMovie);
-        
-        movieInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchMovie();
-            }
-        });
-    </script>
-</body>
+            <script src="script.js"></script>
+        </main>
+
+    </body>
+
 </html>
+
