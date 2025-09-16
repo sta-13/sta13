@@ -166,7 +166,7 @@
             resultContainer.style.display = 'none';
             
             // Realizar la petición a la API
-            fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=438eb27f`)
+            fetch(`http://www.omdbapi.com/?apikey=438eb27f`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error en la respuesta de la API');
