@@ -3,20 +3,386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Web con GitHub Pages</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Buscador de Películas - Práctica 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            color: #b21f1f;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .search-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #1a2a6c;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #1a2a6c;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background: #2a3a7c;
+        }
+        
+        button.secondary {
+            background: #b21f1f;
+        }
+        
+        button.secondary:hover {
+            background: #c22f2f;
+        }
+        
+        .results-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        #resultados {
+            min-height: 200px;
+        }
+        
+        .pelicula {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .poster {
+            flex: 0 0 150px;
+        }
+        
+        .poster img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .info {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .info h3 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .info p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .info strong {
+            color: #b21f1f;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1a2a6c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 40px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .instructions h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .instructions code {
+            background: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .search-section, .results-section {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-<script src="script.js"></script>
+    <header>
+        <h1>Práctica 2: APIs y Javascript</h1>
+        <h2>Buscador de Películas con API de OMDB</h2>
+    </header>
+    
     <div class="container">
-        <h1>¡Mi Primera Web Publicada!</h1>
-        <p>Esta es una página de ejemplo creada para la Práctica 1 de GitHub Pages.</p>
-        <p>Incluye un título, párrafo, campo de texto y botón con estilos CSS.</p>
+        <div class="search-section">
+            <div class="input-group">
+                <label for="tituloPelicula"><i class="fas fa-film"></i> Título de la película:</label>
+                <input type="text" id="tituloPelicula" placeholder="Ej: The Godfather, Inception...">
+            </div>
+            
+            <button id="btnBuscar">
+                <i class="fas fa-search"></i> Buscar Película
+            </button>
+            
+            <button id="btnLimpiar" class="secondary">
+                <i class="fas fa-trash"></i> Limpiar Búsqueda
+            </button>
+            
+            <div class="input-group">
+                <label for="apiKey"><i class="fas fa-key"></i> API Key (opcional):</label>
+                <input type="text" id="apiKey" placeholder="Si tienes tu propia API key, ingrésala aquí">
+            </div>
+        </div>
         
-        <div class="input-group">
-            <input type="text" placeholder="Escribe tu nombre aquí...">
-            <button onclick="alert('¡Hola ' + document.querySelector('input').value + '!')">Saludar</button>
+        <div class="results-section">
+            <h3>Resultados de la Búsqueda</h3>
+            <div id="resultados">
+                <p class="instruction-text">Ingresa el título de una película y haz clic en "Buscar Película" para ver información detallada.</p>
+            </div>
         </div>
     </div>
+    
+    <div class="instructions">
+        <h3><i class="fas fa-info-circle"></i> Instrucciones de Uso</h3>
+        <ol>
+            <li>Ingresa el título de una película en inglés (ej: "The Dark Knight", "Pulp Fiction")</li>
+            <li>Haz clic en "Buscar Película" para obtener información de la API de OMDB</li>
+            <li>Si tienes tu propia API key de OMDB, ingrésala en el campo correspondiente para evitar límites de uso</li>
+            <li>Haz clic en "Limpiar Búsqueda" para comenzar de nuevo</li>
+        </ol>
+    </div>
+    
+    <footer>
+        <p>Práctica 2 - APIs y Javascript &copy; 2023</p>
+    </footer>
+
+    <script>
+        // API Key por defecto (puede tener límites de uso)
+        const DEFAULT_API_KEY = 'f86b4c63';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnBuscar = document.getElementById('btnBuscar');
+            const btnLimpiar = document.getElementById('btnLimpiar');
+            const inputTitulo = document.getElementById('tituloPelicula');
+            const inputApiKey = document.getElementById('apiKey');
+            const resultadosDiv = document.getElementById('resultados');
+            
+            // Cargar API key desde localStorage si existe
+            const savedApiKey = localStorage.getItem('omdbApiKey');
+            if (savedApiKey) {
+                inputApiKey.value = savedApiKey;
+            }
+            
+            btnBuscar.addEventListener('click', buscarPelicula);
+            btnLimpiar.addEventListener('click', limpiarBusqueda);
+            inputTitulo.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    buscarPelicula();
+                }
+            });
+            
+            // Guardar API key cuando cambie
+            inputApiKey.addEventListener('change', function() {
+                localStorage.setItem('omdbApiKey', inputApiKey.value);
+            });
+            
+            function buscarPelicula() {
+                const titulo = inputTitulo.value.trim();
+                const apiKey = inputApiKey.value.trim() || DEFAULT_API_KEY;
+                
+                if (!titulo) {
+                    mostrarError('Por favor, ingresa el título de una película');
+                    return;
+                }
+                
+                // Mostrar loader
+                resultadosDiv.innerHTML = '<div class="loader"></div>';
+                
+                // Realizar la consulta a la API
+                fetch(`https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(titulo)}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la conexión con la API');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.Response === 'False') {
+                            mostrarError('Película no encontrada. Intenta con otro título o verifica tu API key.');
+                        } else {
+                            mostrarPelicula(data);
+                        }
+                    })
+                    .catch(error => {
+                        mostrarError('Error al conectar con la API: ' + error.message);
+                    });
+            }
+            
+            function mostrarPelicula(pelicula) {
+                resultadosDiv.innerHTML = `
+                    <div class="pelicula">
+                        <div class="poster">
+                            <img src="${pelicula.Poster !== 'N/A' ? pelicula.Poster : 'https://via.placeholder.com/150x220/cccccc/969696?text=Poster+no+disponible'}" alt="${pelicula.Title}">
+                        </div>
+                        <div class="info">
+                            <h3>${pelicula.Title} (${pelicula.Year})</h3>
+                            <p><strong>Director:</strong> ${pelicula.Director}</p>
+                            <p><strong>Año:</strong> ${pelicula.Year}</p>
+                            <p><strong>Actores:</strong> ${pelicula.Actors}</p>
+                            <p><strong>Género:</strong> ${pelicula.Genre}</p>
+                            <p><strong>Duración:</strong> ${pelicula.Runtime}</p>
+                            <p><strong>Calificación:</strong> ${pelicula.imdbRating}/10 (${pelicula.imdbVotes} votos)</p>
+                            <p><strong>Sinopsis:</strong> ${pelicula.Plot}</p>
+                            <p><strong>Idioma:</strong> ${pelicula.Language}</p>
+                            <p><strong>Premios:</strong> ${pelicula.Awards}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            function mostrarError(mensaje) {
+                resultadosDiv.innerHTML = `<p class="error">${mensaje}</p>`;
+            }
+            
+            function limpiarBusqueda() {
+                inputTitulo.value = '';
+                resultadosDiv.innerHTML = '<p class="instruction-text">Ingresa el título de una película y haz clic en "Buscar Película" para ver información detallada.</p>';
+                inputTitulo.focus();
+            }
+        });
+    </script>
 </body>
 </html>
