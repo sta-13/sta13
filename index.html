@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de Películas - OMDb API</title>
+    <title>Buscador de Películas</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>🎬 Buscador de Películas</h1>
-            <p>Encuentra información sobre tus películas favoritas</p>
         </header>
         
         <main>
@@ -23,8 +22,7 @@
                         onkeypress="handleKeyPress(event)"
                     >
                     <button onclick="obtenerDirector()">Buscar Película</button>
-                </div>
-                <p class="hint">Ejemplo: The Matrix, Avatar, Inception...</p>
+                </div> 
             </section>
             
             <section class="results-section">
@@ -36,9 +34,7 @@
             </section>
         </main>
         
-        <footer>
-            <p>Datos proporcionados por <a href="https://www.omdbapi.com/" target="_blank">OMDb API</a></p>
-        </footer>
+        
     </div>
 
     <script src="script.js"></script>

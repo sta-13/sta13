@@ -1,13 +1,12 @@
 function obtenerDirector() {
     const titulo = document.getElementById("tituloPelicula").value.trim();
     
-    // Validar que se haya ingresado un título
+
     if (!titulo) {
         alert("Por favor, ingresa el título de una película");
         return;
     }
-    
-    // Mostrar estado de carga
+
     const cuadroRespuestas = document.getElementById("cuadroRespuestas");
     cuadroRespuestas.innerHTML = `
         <div class="loading">
@@ -49,8 +48,6 @@ function obtenerDirector() {
                                 <div class="movie-details">
                                     <span class="detail-item">🎬 Año: ${detalle.Year}</span>
                                     <span class="detail-item">🎭 Director: ${detalle.Director !== "N/A" ? detalle.Director : "No disponible"}</span>
-                                    <span class="detail-item">⭐ Rating: ${detalle.imdbRating !== "N/A" ? detalle.imdbRating : "No disponible"}</span>
-                                    <span class="detail-item">⏱️ Duración: ${detalle.Runtime !== "N/A" ? detalle.Runtime : "No disponible"}</span>
                                 </div>
                             </li>
                         `;
@@ -90,10 +87,4 @@ function handleKeyPress(event) {
     if (event.key === 'Enter') {
         obtenerDirector();
     }
-}
-
-// Código para probar que JavaScript está funcionando
-console.log("JavaScript cargado correctamente");
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("Página completamente cargada");
-});
+};
