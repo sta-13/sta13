@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
-
-        <title> Página Web apropiada </title>
-
-    </head>
-
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Películas - OMDb API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
         <header>
-            <h1>Bienvenido a Mi Página Web</h1>
+            <h1>🎬 Buscador de Películas</h1>
+            <p>Encuentra información sobre tus películas favoritas</p>
         </header>
-
+        
         <main>
-            <h2> Buscador de películas </h2>
-            <p> Escribe el título de la película para saber su director y su año</p>
-            <input type="text" id="tituloPelicula" placeholder="Escribe el titulo de la pelicula..."> 
-            <button onclick="obtenerDirector()"> Enviar </button>
-            <div id="cuadroRespuestas"> </div>
+            <section class="search-section">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="tituloPelicula" 
+                        placeholder="Escribe el título de una película..."
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button onclick="obtenerDirector()">Buscar Película</button>
+                </div>
+                <p class="hint">Ejemplo: The Matrix, Avatar, Inception...</p>
+            </section>
             
-            <script src="script.js"></script>
+            <section class="results-section">
+                <div id="cuadroRespuestas" class="results-container">
+                    <div class="placeholder">
+                        <p>Los resultados aparecerán aquí...</p>
+                    </div>
+                </div>
+            </section>
         </main>
+        
+        <footer>
+            <p>Datos proporcionados por <a href="https://www.omdbapi.com/" target="_blank">OMDb API</a></p>
+        </footer>
+    </div>
 
-    </body>
-
+    <script src="script.js"></script>
+</body>
 </html>
-
