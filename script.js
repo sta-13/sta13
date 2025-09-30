@@ -1,35 +1,35 @@
 function obtenerDirector() {
-    var titulo = document.getElementById("tituloPelicula").value;
-    var peticion = `https://www.omdbapi.com/?apikey=b0560da&s=${titulo}`;
+      var titulo = document.getElementById("tituloPelicula").value;
+      var peticion = `https://www.omdbapi.com/?apikey=b0560da&s=${titulo}`;
 
-    fetch(peticion)
-        .then(function (response) {
-            if (!response.ok) {
-                throw new Error("Error en la respuesta de la API");
-            }
-            return response.json();
+      fetch(peticion)
+        .then(response => {
+          if (!response.ok) throw new Error("Error en la respuesta de la API");
+          return response.json();
         })
-        .then(function (data) {
-            // Almacena el JSON de la respuesta en una variable
-            var respuestaJson = data;
+        .then(data => {
+          var resultados = data.Search;
+          var cuadroRespuestas = document.getElementById("cuadroRespuestas");
 
-            // También puedes acceder a datos específicos, por ejemplo, los resultados
-            var resultados = respuestaJson.Search;
-            if (resultados) {
-                console.log(resultados);
-                var cuadroRespuestas = document.getElementById("cuadroRespuestas");
-                var mensaje = `</br></h2> Todas las películas de ${titulo} </h2>`;
-                mensaje += "<ul>";
-                resultados.forEach(function (resultado) {
-                    mensaje += `<li>${resultado.Title}</br>Año de la película: ${resultado.Year}</br>Director: ${resultado.Director} </li>`;
-                    mensaje += "<br>";
+          if (resultados) {
+            var mensaje = `<h2>Resultados para "${titulo}"</h2><ul>`;
+
+            // Para cada resultado, pedimos detalles con imdbID
+            resultados.forEach(resultado => {
+              fetch(`https://www.omdbapi.com/?apikey=b0560da&i=${resultado.imdbID}`)
+                .then(r => r.json())
+                .then(detalle => {
+                  mensaje += `<li><b>${detalle.Title}</b><br>
+                              Año: ${detalle.Year}<br>
+                              Director: ${detalle.Director}</li><br>`;
+                  cuadroRespuestas.innerHTML = mensaje + "</ul>";
                 });
-                mensaje += "</ul>";
-                cuadroRespuestas.innerHTML = mensaje;
-            }
-
+            });
+          } else {
+            cuadroRespuestas.innerHTML = "<p>No se encontraron resultados.</p>";
+          }
         })
-        .catch(function (error) {
-            console.error("Error en la solicitud a la API: " + error.message);
+        .catch(error => {
+          console.error("Error en la solicitud a la API: " + error.message);
         });
-}
+    }
