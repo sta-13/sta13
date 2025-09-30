@@ -1,4 +1,4 @@
-function obtenerDirector() {
+ function obtenerDirector() {
       var titulo = document.getElementById("tituloPelicula").value;
       var peticion = `https://www.omdbapi.com/?apikey=b0560da&s=${titulo}`;
 
@@ -12,18 +12,24 @@ function obtenerDirector() {
           var cuadroRespuestas = document.getElementById("cuadroRespuestas");
 
           if (resultados) {
-            var mensaje = `<h2>Resultados para "${titulo}"</h2><ul>`;
-
-            // Para cada resultado, pedimos detalles con imdbID
-            resultados.forEach(resultado => {
+            // Creamos un array de promesas para obtener detalles de cada película
+            let promesas = resultados.map(resultado =>
               fetch(`https://www.omdbapi.com/?apikey=b0560da&i=${resultado.imdbID}`)
                 .then(r => r.json())
-                .then(detalle => {
-                  mensaje += `<li><b>${detalle.Title}</b><br>
-                              Año: ${detalle.Year}<br>
-                              Director: ${detalle.Director}</li><br>`;
-                  cuadroRespuestas.innerHTML = mensaje + "</ul>";
-                });
+            );
+
+            // Esperamos a que todas las promesas se resuelvan
+            Promise.all(promesas).then(detalles => {
+              let mensaje = `<h2>Resultados para "${titulo}"</h2><ul>`;
+
+              detalles.forEach(detalle => {
+                mensaje += `<li><b>${detalle.Title}</b><br>
+                            Año: ${detalle.Year}<br>
+                            Director: ${detalle.Director}</li><br>`;
+              });
+
+              mensaje += "</ul>";
+              cuadroRespuestas.innerHTML = mensaje;
             });
           } else {
             cuadroRespuestas.innerHTML = "<p>No se encontraron resultados.</p>";
