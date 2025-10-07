@@ -19,12 +19,29 @@ function obtenerDirector() {
                 var cuadroRespuestas = document.getElementById("cuadroRespuestas");
                 var mensaje = `</br></h2> Todas las películas de ${titulo} </h2>`;
                 mensaje += "<ul>";
-                resultados.forEach(function(resultado) {
-                    mensaje += `<li>${resultado.Title}</br>Año de la película: ${resultado.Year}</br>Director: ${detalle.Director}</li>`;
-                    mensaje += "<br>";
+
+                // Hacemos promesas para obtener el director de cada película
+                var promesas = resultados.map(function(resultado) {
+                    var urlDetalle = `https://www.omdbapi.com/?apikey=b0560da&i=${resultado.imdbID}`;
+                    return fetch(urlDetalle)
+                        .then(res => res.json())
+                        .then(detalle => {
+                            return {
+                                titulo: resultado.Title,
+                                anio: resultado.Year,
+                                director: detalle.Director
+                            };
+                        });
                 });
-                mensaje += "</ul>";
-                cuadroRespuestas.innerHTML = mensaje;
+
+                // Esperamos a que todas las promesas se resuelvan
+                Promise.all(promesas).then(function(detalles) {
+                    detalles.forEach(function(peli) {
+                        mensaje += `<li>${peli.titulo}</br>Año de la película: ${peli.anio}</br>Director: ${peli.director}</li><br>`;
+                    });
+                    mensaje += "</ul>";
+                    cuadroRespuestas.innerHTML = mensaje;
+                });
             }
 
         })
