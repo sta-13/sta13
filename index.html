@@ -1,42 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de Películas</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>🎬 Buscador de Películas</h1>
-        </header>
-        
-        <main>
-            <section class="search-section">
-                <div class="search-box">
-                    <input 
-                        type="text" 
-                        id="tituloPelicula" 
-                        placeholder="Escribe el título de una película..."
-                        onkeypress="handleKeyPress(event)"
-                    >
-                    <button onclick="obtenerDirector()">Buscar Película</button>
-                </div> 
-            </section>
-            
-            <section class="results-section">
-                <div id="cuadroRespuestas" class="results-container">
-                    <div class="placeholder">
-                        <p>Los resultados aparecerán aquí...</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-        
-        
-    </div>
 
-    <script src="script.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <title> Página Web </title>
+
+    </head>
+
+    <body>
+        <header>
+            <h1>Bienvenido a Mi Página Web</h1>
+        </header>
+
+        <main>
+            <h2> Buscador de películas </h2>
+            <p> Escribe el título de la película para saber su director</p>
+            <input type="text" id="tituloPelicula" placeholder="Escribe el titulo de la pelicula..."> 
+            <button onclick="obtenerDirector()"> Enviar </button>
+            <div id="cuadroRespuestas"> </div>
+            
+            <script src="script.js"></script>
+        </main>
+
+    </body>
+
 </html>
