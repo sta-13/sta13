@@ -28,7 +28,7 @@ function obtenerDirector() {
                         .then(detalle => {
                             return {
                                 titulo: resultado.Title,
-                                anio: resultado.Year,
+                                año: resultado.Year,
                                 director: detalle.Director
                             };
                         });
@@ -37,7 +37,7 @@ function obtenerDirector() {
                 // Esperamos a que todas las promesas se resuelvan
                 Promise.all(promesas).then(function(detalles) {
                     detalles.forEach(function(peli) {
-                        mensaje += `<li>${peli.titulo}</br>Año de la película: ${peli.anio}</br>Director: ${peli.director}</li><br>`;
+                        mensaje += `<li>${peli.titulo}</br>Año de la película: ${peli.año}</br>Director: ${peli.director}</li><br>`;
                     });
                     mensaje += "</ul>";
                     cuadroRespuestas.innerHTML = mensaje;
