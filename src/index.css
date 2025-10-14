@@ -1,0 +1,88 @@
+/* Fondo general oscuro (como la maqueta) */
+body {
+  margin: 0;
+  background: #6a6a6a; /* gris página */
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #fff;
+}
+
+/* Panel centrado */
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+  padding: 32px 12px;
+}
+
+.frame {
+  width: 900px;               /* ancho similar a la maqueta */
+  max-width: 95vw;
+  background: #4f4f4f;        /* gris panel */
+  border: 2px solid #3b3b3b;
+  padding: 28px;
+  box-shadow: 0 2px 0 #3b3b3b inset;
+}
+
+/* Título principal */
+.appTitle {
+  margin: 0 0 28px 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Bloque de categoría */
+.category {
+  margin-bottom: 30px;
+  background: #5b5b5b;        /* gris del bloque */
+  border: 2px solid #3b3b3b;  /* borde como en la imagen */
+  padding: 16px;
+}
+
+.category__title {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+}
+
+/* Fila horizontal con borde y scroll */
+.category__row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 16px;
+  background: #6a6a6a;
+  border: 2px solid #3b3b3b;
+}
+
+/* Tarjeta roja de película */
+.movie {
+  flex: 0 0 220px;            /* ancho fijo como tarjetas de la maqueta */
+  background: #e36b6b;        /* rojo claro */
+  border: 2px solid #3b3b3b;  /* borde oscuro */
+  padding: 12px;
+  color: #1a1a1a;             /* texto oscuro como en la imagen */
+  box-shadow: 0 2px 0 #3b3b3b inset;
+}
+
+.movie__title {
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+
+.movie__extra {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Botón rojo más oscuro con texto negro */
+.movie__btn {
+  width: 140px;
+  padding: 8px 10px;
+  background: #d54848;        /* rojo botón */
+  color: #0a0a0a;             /* texto negro */
+  border: 2px solid #3b3b3b;
+  cursor: pointer;
+}
+
+.movie__btn:hover {
+  filter: brightness(1.05);
+}
